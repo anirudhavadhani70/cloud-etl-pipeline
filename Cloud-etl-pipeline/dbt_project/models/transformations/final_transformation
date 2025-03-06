@@ -1,0 +1,3 @@
+SELECT *,
+       columnA + columnB AS new_metric
+FROM {{ ref('staging_table') }}

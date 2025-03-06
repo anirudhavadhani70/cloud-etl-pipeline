@@ -1,0 +1,2 @@
+SELECT *
+FROM {{ source('your_schema', 'final_table') }}

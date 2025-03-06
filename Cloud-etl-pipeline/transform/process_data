@@ -1,0 +1,13 @@
+from pyspark.sql import SparkSession
+
+def process_data():
+    spark = SparkSession.builder.appName("ETL Processing").getOrCreate()
+    
+    df = spark.read.csv("s3://your-bucket-name/raw_data.csv", header=True, inferSchema=True)
+    df_transformed = df.withColumnRenamed("old_column", "new_column")
+    df_transformed.write.parquet("s3://your-bucket-name/transformed_data.parquet")
+    
+    print("Data processing complete.")
+
+if __name__ == "__main__":
+    process_data()

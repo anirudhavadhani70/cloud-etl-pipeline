@@ -1,0 +1,15 @@
+import boto3
+import config.config as config
+
+def upload_to_s3(file_path, bucket, object_name=None):
+    s3_client = boto3.client('s3', aws_access_key_id=config.AWS_ACCESS_KEY,
+                             aws_secret_access_key=config.AWS_SECRET_KEY)
+    
+    if object_name is None:
+        object_name = file_path.split('/')[-1]
+    
+    s3_client.upload_file(file_path, bucket, object_name)
+    print(f"File {file_path} uploaded to {bucket}/{object_name}")
+
+if __name__ == "__main__":
+    upload_to_s3('data/raw_data.csv', config.S3_BUCKET)
